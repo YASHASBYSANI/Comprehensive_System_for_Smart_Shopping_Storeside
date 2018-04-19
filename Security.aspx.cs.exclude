@@ -1,0 +1,69 @@
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Media;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Security : System.Web.UI.Page
+{
+    private SoundPlayer s = new SoundPlayer();
+    private string transactionId = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Session["LoginStoreId"] == null)
+                Response.Redirect("Login.aspx");
+        }
+        else
+        {
+
+        }
+        playAlarm();
+    }
+    
+    protected void btnStopAlarm_Click(object sender, EventArgs e)
+    {
+        stopAlarm();
+    }
+
+    protected void playAlarm()
+    {
+        s.SoundLocation = Server.MapPath("Sounds/Alarm2.wav");
+        s.PlayLooping();
+    }
+
+    protected void stopAlarm()
+    {
+        s.Stop();
+    }
+
+    protected void txtCustomerUserId_TextChanged(object sender, EventArgs e)
+    {
+        using (OracleConnection connection = new OracleConnection())
+        {
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["SamyConnection"].ConnectionString;
+            connection.Open();
+            string query = "SELECT t1.full_name, t2.record_id, t2.transaction_id ";
+            query += "FROM userdetails t1, checkout_universal t2 ";
+            query += "WHERE t1.email_username = t2.email_username ";
+            query += "AND t2.email_username = '" + txtCustomerUserId.Text.Trim() + "' ";
+            query += "AND t2.checked_out = 1 ";
+            query += "AND t2.security_checked_out = 0 ";
+            query += "AND t2.checkout_datetime = (SELECT MAX(checkout_datetime) FROM checkout_universal WHERE email_username = '" + txtCustomerUserId.Text.Trim() + "')";
+            OracleCommand command = new OracleCommand(query, connection);
+            OracleDataReader reader = command.ExecuteReader();
+            txtCustomerName.Text = reader["FULL_NAME"].ToString();
+            txtCheckoutId.Text = reader["RECORD_ID"].ToString();
+            transactionId = reader["transaction_id"].ToString();
+
+
+            connection.Close();
+        }
+    }
+}

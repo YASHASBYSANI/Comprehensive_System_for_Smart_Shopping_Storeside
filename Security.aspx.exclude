@@ -1,0 +1,88 @@
+﻿<%@ Page Title="Security Check" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Security.aspx.cs" Inherits="Security" %>
+<%@ MasterType VirtualPath="~/Site.master" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <form runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div class="w3-card-8 w3-margin-0 w3-white">
+            <div class="w3-container w3-red w3-right-align">
+                <h2>Security Check</h2>
+            </div>
+            <div class="w3-container w3-white w3-padding-medium">
+                <div class="w3-panel w3-leftbar w3-border-blue">
+                    <div class="w3-container">
+                        <div class="w3-text-blue w3-center w3-xlarge">Customer Security Check</div>
+                    </div>
+                    <div class="w3-row">
+                        <div class="w3-col m3">
+                            &nbsp;
+                        </div>
+                        <div class="w3-col m6">
+                            <div class="group">
+                                <asp:TextBox ID="txtCustomerUserId" class="input-animated" placeholder=" " runat="server" OnTextChanged="txtCustomerUserId_TextChanged" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Customer's User ID</label>
+                            </div>
+                        </div>
+                        <div class="w3-col m3">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <hr />
+                    <asp:Panel id="divSecurityCheckoutDetails" runat="server" Visible="true">
+                        <div class="w3-row">
+                            <div class="w3-col m6 w3-padding">
+                                <div class="w3-container w3-padding w3-margin-0 w3-light-grey">
+                                    <span class="w3-left w3-padding w3-text-black w3-large">Customer and Checkout Details.</span>
+                                </div>
+                                <div class="group">
+                                    <asp:TextBox ID="txtCustomerName" class="input-animated" placeholder=" " runat="server" />
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Customer's Name</label>
+                                </div>
+
+                                <div class="group">
+                                    <asp:TextBox ID="txtCheckoutId" class="input-animated" placeholder=" " runat="server" />
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Checkout ID</label>
+                                </div>
+                            </div>
+                            <div class="w3-col m6 w3-padding">
+                                <div class="w3-container w3-padding w3-margin-0 w3-light-grey">
+                                    <span class="w3-left w3-padding w3-text-black w3-large">Customer and Checkout Details.</span>
+                                </div>
+                                <div class="group">
+                                    <asp:TextBox ID="txtExpectedWeight" class="input-animated" placeholder=" " runat="server" />
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label><i class="fa fa-balance-scale" aria-hidden="true"></i>&nbsp;Expected Wet Weight</label>
+                                </div>
+
+                                <div class="group">
+                                    <asp:TextBox ID="txtObservedWeight" class="input-animated" placeholder=" " runat="server" />
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label><i class="fa fa-balance-scale" aria-hidden="true"></i>&nbsp;Recorded Wet Weight</label>
+                                </div>
+                            </div>
+                        </div>
+                    </asp:Panel>
+                    <asp:Button ID="btnStopAlarm" runat="server" Text="Button" OnClick="btnStopAlarm_Click" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(window).ready(function () {
+            document.getElementById("<%=txtCustomerName.ClientID%>").setAttribute("readonly", "readonly");
+            document.getElementById("<%=txtCheckoutId.ClientID%>").setAttribute("readonly", "readonly");
+            document.getElementById("<%=txtExpectedWeight.ClientID%>").setAttribute("readonly", "readonly");
+        });
+    </script>
+</asp:Content>
+

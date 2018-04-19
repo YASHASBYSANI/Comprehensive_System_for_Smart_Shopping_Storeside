@@ -1,0 +1,355 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Samy Store Application</title>
+    <link rel="icon" href="Images/shoppingbag-2.ico" type="image/x-icon" />
+    <link href="Images/shoppingbag-2.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="Styles/w3.css" />
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" type="text/css" href="Datepicker/codebase/dhtmlxcalendar.css"/>
+	<script src="Datepicker/codebase/dhtmlxcalendar.js"></script>
+
+    <!-- Font-Awesome Iconns -->
+    <script src="https://use.fontawesome.com/1741c018ab.js"></script>
+
+    <!-- hammer.js -->
+    <script type="text/javascript" src="Scripts/hammer.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- For Notification -->
+    <script type="text/javascript" src="Scripts/modernizr.custom.js"></script>
+    <link rel="stylesheet" type="text/css" href="Styles/circular_notification.css" />
+
+    <!-- Outdated Browser -->
+    <link rel="stylesheet" href="outdatedbrowser/outdatedbrowser.min.css" />
+    <script src="outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <!-- Scroll Bar -->
+    <link rel="stylesheet" type="text/css" href="Styles/scrollbar.css" />
+
+    <!-- User Defined -->
+    <link rel="stylesheet" type="text/css" href="Styles/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/general.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/animated_input.css" />
+    <script type="text/javascript" src="Scripts/disable-scroll.js"></script>
+    <link rel="stylesheet" type="text/css" href="Styles/loader.css" />
+    <style>
+        html, body, h1, h2, h3, h4, h5 {
+            font-family: "Raleway", sans-serif;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        *, *:after, *:before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .clr {
+            clear: both;
+        }
+    </style>
+
+</head>
+<body class="w3-light-grey">
+    <!-- Outdated Browser -->
+    <div id="outdated"></div>
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="cssload-loader-inner">
+            <div class="cssload-cssload-loader-line-wrap-wrap">
+                <div class="cssload-loader-line-wrap"></div>
+            </div>
+            <div class="cssload-cssload-loader-line-wrap-wrap">
+                <div class="cssload-loader-line-wrap"></div>
+            </div>
+            <div class="cssload-cssload-loader-line-wrap-wrap">
+                <div class="cssload-loader-line-wrap"></div>
+            </div>
+            <div class="cssload-cssload-loader-line-wrap-wrap">
+                <div class="cssload-loader-line-wrap"></div>
+            </div>
+            <div class="cssload-cssload-loader-line-wrap-wrap">
+                <div class="cssload-loader-line-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification-shape shape-progress" id="notification-shape">
+        <svg width="70px" height="70px">
+            <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z" />
+        </svg>
+    </div>
+
+    <!-- Error Modal -->
+    <asp:Panel id="err_modal" class="w3-modal" style="z-index: 900;" runat="server">
+        <div class="modal-content w3-card-8 w3-animate-top w3-white w3-center" style="max-width: 350px; position: absolute; right: 0; left: 0; margin-left: auto; margin-right: auto;">
+            <div class="w3-container w3-padding-8 w3-red">
+                <span onclick="document.getElementById('<%=err_modal.ClientID %>').style.display='none'" class="w3-closebtn"><i class="fa fa-remove"></i></span>
+                <asp:Label id="err_heading" Text="Error" class="w3-left w3-padding w3-large" runat="server"></asp:Label>
+            </div>
+            <div class="w3-section">
+                <p class="w3-padding-medium">
+                    <asp:Label ID="err_msg" Text="Error message." runat="server"></asp:Label>
+                </p>
+            </div>
+            <div class="w3-container w3-padding-8 w3-red">
+                <button class="w3-btn w3-white w3-hover-black w3-text-black w3-hover-text-white w3-small w3-left" onclick="document.getElementById('<%=err_modal.ClientID %>').style.display='none';">Close</button>
+            </div>
+        </div>
+    </asp:Panel>
+
+    <!-- Top container -->
+    <div id="divTop" class="w3-container w3-top w3-white w3-large w3-padding" style="z-index: 400">
+        <div class="w3-left w3-hide-large" style="height: 100%;">
+            <button class="c-hamburger c-hamburger--htx" onclick="w3_toggle_menu();">
+                <span>toggle menu</span>
+            </button>
+        </div>
+        <div style="height: 100%;">
+            <a href="Home.aspx">
+                <img class="w3-left" src="Images/Samy_logo.min.png" alt="Samy" style="width: 70%; height: 70%; max-height: 60px; max-width: 107px;" />
+            </a>
+        </div>
+    </div>
+
+    <!-- Side Container -->
+    <nav class="w3-animate-left w3-sidenav w3-collapse w3-white w3-large" style="z-index: 300; width: 250px; display: none;" id="mySidenav">
+        <br />
+        <div class="w3-container w3-row">
+            <div class="w3-col s4">
+                <img src="Images/avatar_male1.png" class="w3-circle w3-margin-right" style="width: 46px" />
+            </div>
+            <div class="w3-col s8 w3-xlarge">
+                <span class="w3-large">
+                    Welcome<br />
+                    <asp:Label ID="lblUser" runat="server" class="w3-text-blue"></asp:Label>
+                </span>
+                <div class="w3-btn-group">
+                    <!--<button class="w3-btn-block w3-white w3-text-blue w3-hover-text-green w3-small w3-border w3-padding-tiny w3-border-green w3-margin-0">
+                            <i class="fa fa-envelope"></i>&nbsp;Mail
+                            <span class="w3-text-red w3-margin-right w3-medium w3-right">&#x2776;</span>
+                        </button>-->
+                    <button id="btnStoreDetails" class="w3-btn-block w3-white w3-text-blue w3-hover-text-green w3-small w3-border w3-padding-tiny w3-border-green" runat="server" onclick="location.href='ManagerLogin.aspx';">
+                        <i class="fa fa-gear"></i>&nbsp;Manager's Console
+                    </button>
+                    <button id="btnManagerLogout" class="w3-btn-block w3-white w3-text-blue w3-hover-text-red w3-small w3-border w3-padding-tiny w3-border-red" runat="server" onclick="location.href='Logout.aspx?action=manager';">
+                        <i class="fa fa-sign-out"></i>&nbsp;Manager Logout
+                    </button>
+                </div>
+                <!--<button class="w3-btn w3-white W3-text-blue w3-hover-none w3-hover-text-green w3-show-inline-block w3-large"><i class="fa fa-user"></i></button>
+                    <button class="w3-btn w3-white W3-text-blue w3-hover-none w3-hover-text-green w3-show-inline-block w3-large"><i class="fa fa-cog"></i></button>-->
+            </div>
+        </div>
+        <hr />
+        <asp:Panel id="pnlDashboard" class="w3-container" runat="server">
+            <h4>Dashboard</h4>
+            <a href="Home.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding"><i class="fa fa-home fa-fw"></i>&nbsp;Home</a>
+            <a href="StockTaking.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding"><i class="fa fa-stack-overflow fa-fw"></i>&nbsp;Stock Taking</a>
+            <a href="CheckIn.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding"><i class="fa fa-sign-in fa-fw"></i>&nbsp;Check In</a>
+            <a href="CheckOut.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding"><i class="fa fa-sign-out fa-fw"></i>&nbsp;Check Out</a>
+            <%--<a href="Security.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding"><i class="fa fa-shield fa-fw"></i>&nbsp;Security Check</a>--%>
+            <a id="linkSales" href="Sales.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding" runat="server"><i class="fa fa-bar-chart fa-fw"></i>&nbsp;Sales</a>
+            <a id="linkStocks" href="Stocks.aspx" class="w3-text-blue w3-hover-text-indigo w3-padding" runat="server"><i class="fa fa-stack-overflow fa-fw"></i>&nbsp;Stocks</a>
+        </asp:Panel>
+        <%--<asp:Button id="btnLogout" class="w3-btn-block w3-green w3-ripple w3-section w3-padding" runat="server" OnClick="btnLogout_Click" />--%>
+        <button id="btnLogout" class="w3-btn-block w3-green w3-ripple w3-section w3-padding" runat="server" onclick="location.href='Logout.aspx?action=store';">
+            Logout&nbsp;<i class="fa fa-sign-out"></i>
+        </button>
+        <hr />
+        <a id="linkAbout" class="w3-text-blue w3-hover-text-indigo w3-padding" href="About.aspx" runat="server"><i class="fa fa-question fa-fw"></i>&nbsp;About Samy</a>
+    </nav>
+
+    <!-- Overlay effect when opening sidenav on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" title="Close Side Menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div id="divMain" class="w3-main w3-padding-medium w3-center" style="margin-left: 250px; margin-top: 95px; min-height: calc(100vh - 118px);">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+
+
+    <!-- Footer -->
+    <div class="w3-container w3-red w3-large w3-padding w3-right w3-hide-large" style="width: 100%;">
+        <div class="w3-right w3-hide-large w3-padding-0">
+            <div class="w3-right">&nbsp;&nbsp;&nbsp;</div>
+            <img class="w3-right" src="Images/Samy_footerlogo.min.png" alt="Samy" style="width: 12%; height: 12%;" />
+        </div>
+    </div>
+    <div class="w3-container w3-red w3-large w3-padding w3-right w3-hide-small w3-hide-medium" style="width: calc(100% - 250px);">
+        <div class="w3-right w3-hide-small w3-hide-medium w3-padding-0">
+            <div class="w3-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <img class="w3-right" src="Images/Samy_footerlogo.min.png" alt="Samy" style="width: 12%; height: 12%;" />
+        </div>
+    </div>
+
+
+
+
+    <!-- SCRIPTS -->
+    <!-- script to adjust style of few elements -->
+    <script type="text/javascript">
+        $(window).ready(function () {
+            document.getElementById("divMain").style.marginTop = document.getElementById("divTop").offsetHeight + "px";
+            document.getElementsByClassName("c-hamburger")[0].style.marginTop = (document.getElementsByClassName("c-hamburger")[0].parentNode.parentNode.offsetHeight) / 2 - 22.5 + "px";
+            $("#loader").fadeOut("slow");
+
+            var currPage = window.location.pathname;
+            var links = document.getElementById("<%=pnlDashboard.ClientID%>").children;
+            for (var i = 1; i < links.length; i++) {
+                links[i].removeAttribute("class");
+                links[i].setAttribute("class", "w3-text-blue w3-hover-text-indigo w3-padding");
+            }
+            if (currPage == "/Home" || currPage == "/Home.aspx") {
+                links[1].removeAttribute("class");
+                links[1].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            }
+            else if (currPage == "/StockTaking" || currPage == "/StockTaking.aspx") {
+                links[2].removeAttribute("class");
+                links[2].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            }
+            else if (currPage == "/CheckIn" || currPage == "/CheckIn.aspx") {
+                links[3].removeAttribute("class");
+                links[3].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            }
+            else if (currPage == "/CheckOut" || currPage == "/CheckOut.aspx") {
+                links[4].removeAttribute("class");
+                links[4].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            }
+            //else if (currPage == "/Security" || currPage == "/Security.aspx") {
+            //    links[4].removeAttribute("class");
+            //    links[4].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            //}
+            else if (currPage == "/Sales" || currPage == "/Sales.aspx") {
+                links[5].removeAttribute("class");
+                links[5].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            }
+            else if (currPage == "/Stocks" || currPage == "/Stocks.aspx") {
+                links[6].removeAttribute("class");
+                links[6].setAttribute("class", "w3-text-white w3-hover-blue-grey w3-blue w3-padding");
+            }
+
+        });
+    </script>
+
+    <!-- script to toggle sidenav -->
+    <script type="text/javascript">
+        //functions for sidenav in smaller screens
+        function w3_toggle_menu() {
+            var toggle = document.getElementsByClassName("c-hamburger")[0];
+            toggle.addEventListener("click", function (e) {
+                e.preventDefault();
+            });
+            var hamburger = document.getElementsByClassName("c-hamburger")[0];
+            if (document.getElementById("mySidenav").style.display == "none") {//Menu closed, open now
+                w3_open();
+            }
+            else if (document.getElementById("mySidenav").style.display == "block") {//Menu opened, close now
+                w3_close();
+            }
+        }
+
+        //part to open/close side menu on swipes
+        var myElement = document.body;
+        var mc = new Hammer(myElement);
+        mc.on("swiperight", function () {
+            if (document.getElementById("mySidenav").style.display == "none") //Menu closed, open now
+                w3_open();
+        });
+        mc.on("swipeleft", function () {
+            if (document.getElementById("mySidenav").style.display == "block") //Menu opened, close now
+                w3_close();
+        });
+
+        function w3_open() {
+            document.getElementById("mySidenav").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+            document.getElementsByClassName("c-hamburger")[0].classList.add("is-active");
+        }
+
+        function w3_close() {
+            document.getElementById("mySidenav").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+            document.getElementsByClassName("c-hamburger")[0].classList.remove("is-active");
+        }
+    </script>
+
+    <!-- script for showing error modal -->
+    <script type="text/javascript">
+            function showError(heading, message, timeout = 9000) { //timeout = 0 for no timeout
+                document.getElementById("error_heading").innerHTML = heading;
+                document.getElementById("error_msg").innerHTML = message;
+                document.getElementById("error_modal").style.display = "block";
+                if (timeout != 0) {
+                    setTimeout(function () {
+                        document.getElementById("error_modal").style.display = "none";
+                    }, timeout);
+                }
+            }
+    </script>
+
+    <!-- scripts for notification -->
+    <script type="text/javascript" src="Scripts/classie.js"></script>
+    <script type="text/javascript" src="Scripts/notificationFx.js"></script>
+    <script type="text/javascript">
+            function openNotif(material) {
+                var svgshape = document.getElementById('notification-shape');
+                var notification = new NotificationFx({
+                    wrapper: svgshape,
+                    message: material,
+                    layout: 'other',
+                    effect: 'loadingcircle',
+                    ttl: 9000,
+                    type: 'notice', // notice, warning or error
+                    onClose: function () {
+                        bttn.disabled = false;
+                    }
+                });
+
+                // show the notification
+                notification.show();
+            }
+    </script>
+
+    <!-- script for outdated browser -->
+    <script type="text/javascript">
+            //event listener: DOM ready
+            function addLoadEvent(func) {
+                var oldonload = window.onload;
+                if (typeof window.onload != 'function') {
+                    window.onload = func;
+                } else {
+                    window.onload = function () {
+                        if (oldonload) {
+                            oldonload();
+                        }
+                        func();
+                    }
+                }
+            }
+            //call plugin function after DOM ready
+            addLoadEvent(function () {
+                outdatedBrowser({
+                    bgColor: '#f25648',
+                    color: '#ffffff',
+                    lowerThan: 'transform',
+                    languagePath: 'outdatedbrowser/lang/en.html'
+                })
+            });
+    </script>
+</body>
+</html>

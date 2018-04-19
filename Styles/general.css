@@ -1,0 +1,146 @@
+﻿.clr {
+    clear: both;
+}
+#divSimLost  {
+    cursor: default;
+}
+button[id^="accordBtn"] {
+    cursor: default !important;
+    box-shadow: none !important;
+}
+    button[id^="accordBtn"]:hover {
+        -o-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+/***************hamburger**************/
+.c-hamburger {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 0;
+  text-indent: -9999px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.c-hamburger:focus {
+  outline: none;
+}
+
+/*********************************************/
+.c-hamburger span {
+  display: block;
+  position: absolute;
+  top: 13px;
+  left: 5px;
+  right: 5px;
+  height: 4px;
+  border-radius: 2px;
+  background: #F44336;
+  content: "";
+}
+
+.c-hamburger span::before,
+.c-hamburger span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #F44336;
+  content: "";
+}
+
+.c-hamburger span::before {
+  top: -6px;
+}
+
+.c-hamburger span::after {
+  bottom: -6px;
+}
+/***************************************/
+.c-hamburger--htx {
+  background-color: white;
+}
+
+.c-hamburger--htx span {
+  transition: background 0s 0.3s;
+}
+
+.c-hamburger--htx span::before,
+.c-hamburger--htx span::after {
+  transition-duration: 0.3s, 0.3s;
+  transition-delay: 0.3s, 0s;
+}
+
+.c-hamburger--htx span::before {
+  transition-property: top, transform;
+}
+
+.c-hamburger--htx span::after {
+  transition-property: bottom, transform;
+}
+
+/* active state, i.e. menu open */
+.c-hamburger--htx.is-active {
+  background-color: white;
+}
+
+.c-hamburger--htx.is-active span {
+  background: none;
+}
+
+.c-hamburger--htx.is-active span::before {
+  top: 0;
+  background: #922820;
+  transform: rotate(45deg);
+}
+
+.c-hamburger--htx.is-active span::after {
+  bottom: 0;
+  background: #922820;
+  transform: rotate(-45deg);
+}
+
+.c-hamburger--htx.is-active span::before,
+.c-hamburger--htx.is-active span::after {
+  transition-delay: 0s, 0.3s;
+}
+
+/************CookieFooter*****************/
+#cookieFooter {
+    display: none;
+    width: calc(100% - 20px);
+    max-width: 500px;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    z-index: 1000;
+}
+#notifyBar {
+    width: calc(100% - 20px);
+    position: fixed;
+    top: 0;
+    left: 10px;
+    z-index: 1000;
+}
+
+#divMain hr {
+    height: 1px;
+    border-radius: 2px;
+    //border-color: rgba(33, 150, 243, 0.0);
+    background: linear-gradient(90deg, #3F51B5 0%, #2196F3 50%, #3F51B5 100%);
+    
+}

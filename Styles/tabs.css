@@ -1,0 +1,76 @@
+﻿.tabContainer {
+    padding: 0px;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgb(33, 150, 243);
+}
+
+    .tabContainer .tabs {
+        padding: 0;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+    }
+
+        .tabContainer .tabs .tab {
+            display: block;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+            .tabContainer .tabs .tab .text {
+                display: inline-block;
+                vertical-align: middle;
+                cursor: pointer;
+                font-weight: 400;
+            }
+
+            .tabContainer .tabs .tab .text {
+                font-size: 20px;
+                opacity: .54;
+            }
+
+                .tabContainer .tabs .tab .text:hover {
+                    color: #2196F3;
+                }
+
+            .tabContainer .tabs .tab.active {
+                color: #2196F3;
+            }
+
+                .tabContainer .tabs .tab.active .text {
+                    opacity: 1 !important;
+                }
+
+.tabContainer .tabs .indicator {
+    position: absolute;
+    bottom: 0px;
+    height: 3px;
+    background: #2196F3;
+}
+
+.sectionsContainer {
+    padding: 0;
+}
+
+    .sectionsContainer .sections .section {
+        display: none;
+    }
+
+        .sectionsContainer .sections .section p {
+            font-size: 18px;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .sectionsContainer .sections .section.active {
+            display: block;
+        }
